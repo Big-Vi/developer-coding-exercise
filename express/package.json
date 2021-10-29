@@ -4,11 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "4.17.1"
+    "cors": "^2.8.5",
+    "express": "4.17.1",
+    "read-markdown": "^1.0.2",
+    "fs-extra": "^5.0.0",
+    "globby": "^8.0.1",
+    "gray-matter": "^3.1.1",
+    "markdown": "^0.5.0"
   }
 }

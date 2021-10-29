@@ -17,7 +17,7 @@ const stopWords = [
   'we\'re', 'we\'ve', 'were', 'weren\'t', 'what', 'what\'s', 'when', 'when\'s', 'where',
   'where\'s', 'which', 'while', 'who', 'who\'s', 'whom', 'why', 'why\'s', 'with', 'won\'t',
   'would', 'wouldn\'t', 'you', 'you\'d', 'you\'ll', 'you\'re', 'you\'ve', 'your', 'yours',
-  'yourself', 'yourselves'
+  'yourself', 'yourselves', ''
 ]
 
 /**
@@ -30,7 +30,26 @@ const stopWords = [
  * @returns {[string]} - An array of the most frequently used non-Stopwords
  */
 function getTopWords (bodyText, tagCount = 5) {
-  // Write your own implementation
+  // Tidying up the text to remove characters that are not letters.
+  let bodyTextArray = bodyText.toLowerCase().replace(/[.,*–\s]/g, ' ').split("\n").join(' ').split("/").join(' ').split(' ')
+  let wordsCount = {}
+  bodyTextArray.map(item => {
+    // Removing stop words and non-alphabetical characters.
+    if( !stopWords.includes(item) && item.search(/[0-9]/g, '') === -1) {
+      if(wordsCount[item] == undefined) {
+        wordsCount[item] = 1 
+      } else {
+        wordsCount[item] += 1
+      }
+    }
+  })
+  // Sorting the words by frequency.
+  let entries = Object.entries(wordsCount)
+  let sorted = entries.sort((a, b) => b[1] - a[1]);
+  let tags = sorted.slice(0, tagCount).map(item => {
+    return item[0]
+  })
+  return tags
 }
 
 module.exports = { getTopWords }
